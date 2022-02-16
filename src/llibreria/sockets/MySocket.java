@@ -120,7 +120,7 @@ public class MySocket {
         return ois.readObject();
     }
     /**
-     * Mehod that reads an <b>object array</b>
+     * Method that reads an <b>object array</b>
      * @return Returns an object array
      * @throws IOException Throws an exception
      * @throws ClassNotFoundException Throws an exception
@@ -135,7 +135,7 @@ public class MySocket {
      * @return Returns an object array
      * @throws IOException Throws an exception
      * @throws ClassNotFoundException Throws an exception
-     * @deprecated This method is deprecated, use {@link client.MySocket#readObjects() } instead
+     * @deprecated This method is deprecated
      */
     @Deprecated
     public Object[] readObject_Array() throws IOException, ClassNotFoundException {

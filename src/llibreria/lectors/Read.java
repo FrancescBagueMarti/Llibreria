@@ -86,9 +86,9 @@ public class Read{
      * <p>
      * Asks the user how he wants to turn a boolean through a character.<br>
      * The character, will be also introduced by the user through the use of a 
-     * method from this class {@link #_char(java.lang.String) }
+     * method from this class {@link _char }
      * </p>
-     * <p>If the scanned token in't from the expected type, it lunches an arror and returns a <b>o</b> value</p>
+     * <p>If the scanned token isn't from the expected type, it lunches an error and returns a <b>o</b> value</p>
      * @return Returns a 'true' or a 'false' depending on the user wants
      */
     public static boolean _boolean(){

@@ -9,7 +9,4 @@ package llibreria.fitxers;
  * @author cep
  */
 public interface Binary {
-    public static void p(){
-        
-    }
 }
