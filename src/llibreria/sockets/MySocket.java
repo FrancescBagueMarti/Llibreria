@@ -52,6 +52,15 @@ public class MySocket {
         this.isClient = false;
     }
     /**
+     * Constructor for a server's socket
+     * @param PORT Integer with the port where the socket will be located
+     * @throws IOException Throws an Exception
+     */
+    public MySocket(int PORT) throws IOException {
+        this.serverSocket = new ServerSocket(PORT);
+        this.isClient = false;
+    }
+    /**
      * Method that starts the client's socket connection
      * @throws IOException Throws an Exception
      */
@@ -77,6 +86,22 @@ public class MySocket {
      */
     public String getIP() {
         return this.socket.getInetAddress().getHostName();
+    }
+    /**
+     * Method that returns an OutputStream object
+     * @return Returns an OutputStream object
+     * @throws IOException Throws an IOException
+     */
+    public OutputStream getOutputStream() throws IOException {
+        return this.socket.getOutputStream();
+    }
+    /**
+     * Method that returns an InputStream object
+     * @return Returns an InputStream object
+     * @throws IOException Throws an IOException
+     */
+    public InputStream getInputStream() throws IOException {
+        return this.socket.getInputStream();
     }
     /**
      * Method for the sending of an object between the server and the client
