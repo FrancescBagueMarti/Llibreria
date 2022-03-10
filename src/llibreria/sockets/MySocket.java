@@ -134,6 +134,38 @@ public class MySocket {
         oos.writeObject((Serializable) lines);
     }
     /**
+     * Method for the sending of an <b>integer</b> between the server and the client
+     * @param num Integer that will be sent
+     * @throws IOException Throws an exception
+     */
+    public void sendInt(int num) throws IOException {
+        OutputStream os = this.socket.getOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(os);
+        oos.writeInt(num);
+    }
+    /**
+     * Method for the sending of an <b>array of bytes</b> between the server and the client
+     * @param bytes Byte array that will be sent
+     * @throws java.io.IOException Throws an exception
+     */
+    public void sendBytes(byte[] bytes) throws IOException {
+        OutputStream os = this.socket.getOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(os);
+        oos.write(bytes);
+    }
+    /**
+     * Method for the sending of an <b>array of bytes</b> between the server and the client
+     * @param bytes Byte array that will be sent
+     * @param length Length of the Byte array
+     * @throws IOException Throws an exception
+     */
+    public void sendBytes(byte[] bytes, int length) throws IOException {
+        
+        OutputStream os = this.socket.getOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(os);
+        oos.write(bytes);
+    }
+    /**
      * Method that reads an object
      * @return Returns an object
      * @throws IOException Throws an exception
@@ -196,7 +228,7 @@ public class MySocket {
     public char readChar() throws IOException, ClassNotFoundException {
         InputStream is = this.socket.getInputStream();
         ObjectInputStream ois = new ObjectInputStream(is);
-        return (char) ois.readObject();
+        return ois.readChar();
     }
     /**
      * Method that reads an int
@@ -207,7 +239,7 @@ public class MySocket {
     public int readInt() throws IOException, ClassNotFoundException {
         InputStream is = this.socket.getInputStream();
         ObjectInputStream ois = new ObjectInputStream(is);
-        return (int) ois.readObject();
+        return ois.readInt();
     }
     /**
      * Method that reads a double
@@ -218,7 +250,7 @@ public class MySocket {
     public double readDouble() throws IOException, ClassNotFoundException {
         InputStream is = this.socket.getInputStream();
         ObjectInputStream ois = new ObjectInputStream(is);
-        return (double) ois.readObject();
+        return ois.readDouble();
     }
     /**
      * Method that reads a float
@@ -229,7 +261,7 @@ public class MySocket {
     public float readFloat() throws IOException, ClassNotFoundException {
         InputStream is = this.socket.getInputStream();
         ObjectInputStream ois = new ObjectInputStream(is);
-        return (float) ois.readObject();
+        return ois.readFloat();
     }
     /**
      * Method that reads a long
@@ -240,7 +272,7 @@ public class MySocket {
     public long readLong() throws IOException, ClassNotFoundException {
         InputStream is = this.socket.getInputStream();
         ObjectInputStream ois = new ObjectInputStream(is);
-        return (long) ois.readObject();
+        return ois.readLong();
     }
     /**
      * Method that reads a short
@@ -251,7 +283,7 @@ public class MySocket {
     public short readShort() throws IOException, ClassNotFoundException {
         InputStream is = this.socket.getInputStream();
         ObjectInputStream ois = new ObjectInputStream(is);
-        return (short) ois.readObject();
+        return ois.readShort();
     }
     /**
      * Method that reads a byte
@@ -263,7 +295,31 @@ public class MySocket {
     public float readByte() throws IOException, ClassCastException, ClassNotFoundException {
         InputStream is = this.socket.getInputStream();
         ObjectInputStream ois = new ObjectInputStream(is);
-        return (byte) ois.readObject();
+        return ois.readByte();
+    }
+    /**
+     * Method that reads an <b>array of bytes</b>
+     * @param length The maximum number of bytes to read
+     * @return Returns a byte array
+     * @throws java.io.IOException Throws an Exception
+     * @throws java.lang.ClassNotFoundException Throws an Exception
+     */
+    public byte[] readBytes(int length) throws IOException, ClassNotFoundException {
+        InputStream is = this.socket.getInputStream();
+        ObjectInputStream ois = new ObjectInputStream(is);
+        return ois.readNBytes(length);
+    }
+    /**
+     * Method that reads an <b>array of bytes</b>
+     * @return Returns a byte array
+     * @throws java.io.IOException Throws an Exception
+     * @throws java.lang.ClassNotFoundException Throws an Exception
+     */
+    public byte[] readBytes() throws IOException, ClassNotFoundException {
+        int length = this.readInt();
+        InputStream is = this.socket.getInputStream();
+        ObjectInputStream ois = new ObjectInputStream(is);
+        return ois.readNBytes(length);
     }
     /**
      * Method that closes the socket's connection
