@@ -13,7 +13,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import llibreria.exceptions.filemanagerexceprions.FileManagerNotStartedException;
+import llibreria.exceptions.FileManagerNotStartedException;
 
 /**
  * this is a class for reading and writing of text files
@@ -112,7 +112,7 @@ public abstract class FileManager {
         /**
          * Method that reads a single line from a text file
          * @return Returns a String object
-         * @throws FileManagerNotStartedException Throws a custom Exception {@link llibreria.exceptions.filemanagerexceprions.FileManagerNotStartedException}
+         * @throws FileManagerNotStartedException Throws a custom Exception {@link llibreria.exceptions.FileManagerNotStartedException}
          */
         public String readLine() throws FileManagerNotStartedException {
             if (this.hasBeenStarted)
@@ -127,7 +127,7 @@ public abstract class FileManager {
         /**
          * Method that reads all the text inside a file and returns it inside an ArrayList
          * @return Returns an ArrayList object
-         * @throws FileManagerNotStartedException Throws a custom Exception {@link llibreria.exceptions.filemanagerexceprions.FileManagerNotStartedException}
+         * @throws FileManagerNotStartedException Throws a custom Exception {@link llibreria.exceptions.FileManagerNotStartedException}
          */
         public ArrayList<String> readAll() throws FileManagerNotStartedException {
             if (this.hasBeenStarted) {
@@ -178,7 +178,7 @@ public abstract class FileManager {
         /**
          * Method that writes a single line in a text file
          * @param line Line that will be written
-         * @throws FileManagerNotStartedException Throws a custom Exception {@link llibreria.exceptions.filemanagerexceprions.FileManagerNotStartedException}
+         * @throws FileManagerNotStartedException Throws a custom Exception {@link llibreria.exceptions.FileManagerNotStartedException}
          */
         public void writeLine(String line) throws FileManagerNotStartedException {
             if (this.hasBeenStarted)
@@ -193,7 +193,7 @@ public abstract class FileManager {
         /**
          * Method that writes a whole text file
          * @param lines Array with all the lines that will be written in the file
-         * @throws FileManagerNotStartedException Throws a custom Exception {@link llibreria.exceptions.filemanagerexceprions.FileManagerNotStartedException}
+         * @throws FileManagerNotStartedException Throws a custom Exception {@link llibreria.exceptions.FileManagerNotStartedException}
          */
         public void writeAll(String[] lines) throws FileManagerNotStartedException {
             if (this.hasBeenStarted) {
@@ -210,7 +210,7 @@ public abstract class FileManager {
         /**
          * Method that writes a whole text file
          * @param lines List with all the lines that will be written in the file
-         * @throws FileManagerNotStartedException Throws a custom Exception {@link llibreria.exceptions.filemanagerexceprions.FileManagerNotStartedException}
+         * @throws FileManagerNotStartedException Throws a custom Exception {@link llibreria.exceptions.FileManagerNotStartedException}
          */
         public void writeAll(ArrayList<String> lines) throws FileManagerNotStartedException {
             if (this.hasBeenStarted) {
