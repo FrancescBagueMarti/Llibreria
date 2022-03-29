@@ -23,7 +23,7 @@ public class Read{
 
     /**
      * Scans the whole token input as a String.
-     * <p>If the scanned token in't from the expected type, it lunches an arror and returns a null value</p>
+     * <p>If the scanned token isn't from the expected type, it lunches an error and returns a null value</p>
      * 
      * @return Returns the String
      */
@@ -119,7 +119,7 @@ public class Read{
 
     /**
      * Scans the next token of the input as an integer.
-     * <p>If the scanned token in't from the expected type, it lunches an arror and returns a <b>o</b> value</p>
+     * <p>If the scanned token isn't from the expected type, it lunches an error and returns a <b>o</b> value</p>
      * 
      * @return Returns the integer
      */
@@ -134,7 +134,7 @@ public class Read{
      * BigIntegers are used when extremely large values are to be 
      * stored or needed.
      * </p>
-     * <p>If the scanned token in't from the expected type, it lunches an arror and returns a null value</p>
+     * <p>If the scanned token isn't from the expected type, it lunches an error and returns a null value</p>
      * 
      * @return Returns a BigInteger
      */
@@ -144,7 +144,7 @@ public class Read{
 
     /**
      * Scans the next token of the input as a float.
-     * <p>If the scanned token in't from the expected type, it lunches an arror and returns a <b>o</b> value</p>
+     * <p>If the scanned token isn't from the expected type, it lunches an error and returns a <b>o</b> value</p>
      * 
      * @return Returns a float
      */
@@ -154,7 +154,7 @@ public class Read{
 
     /**
      * Scans the next token of the input as a double.
-     * <p>If the scanned token in't from the expected type, it lunches an arror and returns a <b>o</b> value</p>
+     * <p>If the scanned token isn't from the expected type, it lunches an error and returns a <b>o</b> value</p>
      * 
      * @return Returns a double
      */
@@ -168,7 +168,7 @@ public class Read{
      *  - 
      * BigDecimals are used when there is a need for high precision calculations.
      * </p>
-     * <p>If the scanned token in't from the expected type, it lunches an arror and returns a null value</p>
+     * <p>If the scanned token isn't from the expected type, it lunches an error and returns a null value</p>
      * 
      * @return Returns a BigDecimal
      */
@@ -178,7 +178,7 @@ public class Read{
 
     /**
      * Scans the next token of the input as a Short.
-     * <p>If the scanned token in't from the expected type, it lunches an arror and returns a <b>o</b> value</p>
+     * <p>If the scanned token isn't from the expected type, it lunches an error and returns a <b>o</b> value</p>
      * 
      * @return Returns a "short"
      */
@@ -188,7 +188,7 @@ public class Read{
 
     /**
      * Scans the next token of the input as a long.
-     * <p>If the scanned token in't from the expected type, it lunches an arror and returns a <b>o</b> value</p>
+     * <p>If the scanned token isn't from the expected type, it lunches an error and returns a <b>o</b> value</p>
      * 
      * @return Returns a long
      */
@@ -199,7 +199,7 @@ public class Read{
 
     /**
      * Scans the next token of the input as a byte.
-     * <p>If the scanned token in't from the expected type, it lunches an arror and returns a <b>o</b> value</p>
+     * <p>If the scanned token isn't from the expected type, it lunches an error and returns a <b>o</b> value</p>
      * 
      * @return Returns a byte
      */
