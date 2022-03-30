@@ -26,9 +26,6 @@ public class MySocket {
     private Socket socket;
     private boolean isClient;
     
-    /**
-     * Empty constructor
-     */
     public MySocket(){
         
     }
@@ -45,9 +42,8 @@ public class MySocket {
     /**
      * Constructor for a server's socket
      * @param serverSocket ServerSocket object that will be used for the connection
-     * @throws IOException Throws an Exception
      */
-    public MySocket(ServerSocket serverSocket) throws IOException {
+    public MySocket(ServerSocket serverSocket) {
         this.serverSocket = serverSocket;
         this.isClient = false;
     }
@@ -57,7 +53,7 @@ public class MySocket {
      * @throws IOException Throws an Exception
      */
     public MySocket(int PORT) throws IOException {
-        this.serverSocket = new ServerSocket(PORT);
+        this.port = PORT;
         this.isClient = false;
     }
     /**
@@ -77,8 +73,10 @@ public class MySocket {
     public void accept() throws IOException {
         if (isClient)
             throw new IOException("Este mètodo solo funciona si el socket es un servidor.");
-        else
+        else {
+            this.serverSocket = new ServerSocket(this.port);
             this.socket = serverSocket.accept();
+        }
     }
     /**
      * Method that returns the client's IP address
@@ -331,6 +329,7 @@ public class MySocket {
         } else {
             this.socket.close();
             this.serverSocket.close();
+            this.serverSocket = null;
         }
     }
 }
