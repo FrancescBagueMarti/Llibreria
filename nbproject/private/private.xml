@@ -3,11 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/francesc/Desktop/fran/Proyectos/Llibreria/src/llibreria/exceptions/filemanagerexceprions/FileManagerNotStartedException.java</file>
-            <file>file:/home/francesc/Desktop/fran/Proyectos/Llibreria/src/llibreria/fitxers/Binary.java</file>
-            <file>file:/home/francesc/Desktop/fran/Proyectos/Llibreria/src/llibreria/fitxers/FileManager.java</file>
-            <file>file:/home/francesc/Desktop/fran/Proyectos/Llibreria/src/llibreria/sockets/MySocket.java</file>
-            <file>file:/home/francesc/Desktop/fran/Proyectos/Llibreria/src/llibreria/lectors/Read.java</file>
+            <file>file:/home/francesc/Desktop/fran/Proyectos/Llibreria/src/llibreria/encriptation/MyEncrypter.java</file>
+            <file>file:/home/francesc/Desktop/fran/Proyectos/Llibreria/src/llibreria/proves.java</file>
         </group>
     </open-files>
 </project-private>
