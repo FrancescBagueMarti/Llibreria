@@ -4,6 +4,9 @@
  */
 package llibreria.sockets;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.ObjectOutputStream;
@@ -12,6 +15,9 @@ import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * Class with various methods oriented to the usage of {@link java.net.Socket}, 
@@ -26,6 +32,7 @@ public class MySocket {
     private Socket socket;
     private boolean isClient;
     
+    //region CONSTRUCTORS
     public MySocket(){
         
     }
@@ -56,6 +63,9 @@ public class MySocket {
         this.port = PORT;
         this.isClient = false;
     }
+    //endregion
+
+    //region SOCEKT STATUS
     /**
      * Method that starts the client's socket connection
      * @throws IOException Throws an Exception
@@ -79,6 +89,22 @@ public class MySocket {
         }
     }
     /**
+     * Method that closes the socket's connection
+     * @throws IOException Throws an Exception
+     */
+    public void close() throws IOException {
+        if (isClient) {
+            this.socket.close();
+        } else {
+            this.socket.close();
+            this.serverSocket.close();
+            this.serverSocket = null;
+        }
+    }
+    //endregion
+
+    //region GETTERS
+    /**
      * Method that returns the client's IP address
      * @return Returns a String object
      */
@@ -101,6 +127,9 @@ public class MySocket {
     public InputStream getInputStream() throws IOException {
         return this.socket.getInputStream();
     }
+    //endregion
+
+    //region SENDERS
     /**
      * Method for the sending of an object between the server and the client
      * @param object Object that will be sent
@@ -163,6 +192,9 @@ public class MySocket {
         ObjectOutputStream oos = new ObjectOutputStream(os);
         oos.write(bytes);
     }
+    //endregion
+
+    //region READERS
     /**
      * Method that reads an object
      * @return Returns an object
@@ -190,7 +222,7 @@ public class MySocket {
      * @return Returns an object array
      * @throws IOException Throws an exception
      * @throws ClassNotFoundException Throws an exception
-     * @deprecated This method is deprecated
+     * @deprecated This method is deprecated. Use readObjects instead
      */
     @Deprecated
     public Object[] readObject_Array() throws IOException, ClassNotFoundException {
@@ -319,17 +351,84 @@ public class MySocket {
         ObjectInputStream ois = new ObjectInputStream(is);
         return ois.readNBytes(length);
     }
+    //endregion
+
+    //region FILES
+    public void sendFile(String filePath) throws FileNotFoundException, IOException {
+        FileInputStream fis = new FileInputStream(filePath);
+        Path path = Paths.get(filePath);
+        long fileSize = Files.size(path);
+
+        int fileByte = fis.read(); // Lee el primer byte del archivo.
+        int counter=0;
+    
+        while(fileByte != -1)
+        {
+           OutputStream os = this.socket.getOutputStream();
+           os.write(fileByte);
+           fileByte = fis.read();
+           counter++;
+        }
+
+        fis.close();
+    }
     /**
-     * Method that closes the socket's connection
+     * Method that sends a file via webSocket
+     * @param filePath The file's path
+     * @param header The header that will be sent
+     * @throws FileNotFoundException Throws an Exception
+     * @throws IOException  Throws an exception
+     */
+    public void sendFile(String filePath, String header) throws FileNotFoundException, IOException {
+        FileInputStream fis = new FileInputStream(filePath);
+        //Path path = Paths.get(filePath);
+        //long fileSize = Files.size(path);
+
+        int fileByte = fis.read(); // Lee el primer byte del archivo.
+        int counter=0;
+
+        byte[] headerBytes = header.getBytes();
+        OutputStream os;
+        // Sends the header
+        while(counter < headerBytes.length) {
+            os = this.socket.getOutputStream();
+            os.write(headerBytes, counter, headerBytes.length);
+
+            counter += headerBytes.length;
+        }
+        //sends the file
+        while(fileByte != -1)
+        {
+           os = this.socket.getOutputStream();
+           os.write(fileByte);
+           fileByte = fis.read();
+        }
+
+        fis.close();
+    }
+    /**
+     * Method that recieves a file sent via socket
+     * @param filePath Location where the file will be saved
+     * @throws FileNotFoundException Throws an Exception
      * @throws IOException Throws an Exception
      */
-    public void close() throws IOException {
-        if (isClient) {
-            this.socket.close();
-        } else {
-            this.socket.close();
-            this.serverSocket.close();
-            this.serverSocket = null;
+    public void downloadFile(String filePath) throws FileNotFoundException, IOException{
+        
+        FileOutputStream fos = new FileOutputStream(filePath);
+        InputStream is = this.socket.getInputStream();
+        
+        int fileByte = is.read();
+        
+        while(fileByte != -1)
+        {
+           fos.write(fileByte);
+           fileByte = is.read();
+
+           //System.out.println(counter + "-" + fileSize); // Transfer percentage
+           //counter++;
         }
+
+        fos.close();
     }
+    //endregion
 }
