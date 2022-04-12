@@ -15,9 +15,6 @@ import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 /**
  * Class with various methods oriented to the usage of {@link java.net.Socket}, 
@@ -356,18 +353,14 @@ public class MySocket {
     //region FILES
     public void sendFile(String filePath) throws FileNotFoundException, IOException {
         FileInputStream fis = new FileInputStream(filePath);
-        Path path = Paths.get(filePath);
-        long fileSize = Files.size(path);
 
         int fileByte = fis.read(); // Lee el primer byte del archivo.
-        int counter=0;
     
         while(fileByte != -1)
         {
            OutputStream os = this.socket.getOutputStream();
            os.write(fileByte);
            fileByte = fis.read();
-           counter++;
         }
 
         fis.close();
