@@ -1,4 +1,4 @@
-package llibreria.encriptation;
+package llibreria.encryption;
 
 import java.security.SecureRandom;
 import java.io.UnsupportedEncodingException;
@@ -14,7 +14,7 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
 import org.mindrot.jbcrypt.BCrypt;
 
-public class MyEncrypter {
+public class MyEncryptor {
     public static class BlowFish {
         public static String genSalt(){
             return BCrypt.gensalt();
