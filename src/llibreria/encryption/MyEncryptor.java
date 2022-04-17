@@ -14,22 +14,57 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
 import org.mindrot.jbcrypt.BCrypt;
 
+/**
+ * Class with inner Classes oriented to work with data encrypttion
+ * @author Francesc Bague Marti
+ * @version 1.0 2022/04/17
+ */
 public class MyEncryptor {
+    /**
+     * Class for the encryption of passwords
+     */
     public static class BlowFish {
+        /**
+         * Generate a salt for use with the BCrypt.hashpw() method, selecting a reasonable default for the number of hashing rounds to apply
+         * @return an encoded salt value
+         */
         public static String genSalt(){
             return BCrypt.gensalt();
         }
-        public String genSalt(int i) {
+        /**
+         * Generate a salt for use with the BCrypt.hashpw() method
+         * @param i the log2 of the number of rounds of hashing to apply - the work factor therefore increases as 2**log_rounds.
+         * @return an encoded salt value
+         */
+        public static String genSalt(int i) {
             return BCrypt.gensalt(i);
         }
-        public String genSalt(int i, SecureRandom sgr) { 
-            return BCrypt.gensalt(i, sgr);
+        /**
+         * Generate a salt for use with the BCrypt.hashpw() method
+         * @param i the log2 of the number of rounds of hashing to apply - the work factor therefore increases as 2**log_rounds.
+         * @param random an instance of SecureRandom to use
+         * @return an encoded salt value
+         */
+        public static String genSalt(int i, SecureRandom random) { 
+            return BCrypt.gensalt(i, random);
         }
-        public String hashpw(String text, String salt) {
-            return BCrypt.hashpw(text, salt);
+        /**
+         * Hash a password using the OpenBSD bcrypt scheme
+         * @param pass the password to hash
+         * @param salt the salt to hash with (perhaps generated using BCrypt.gensalt)
+         * @return the hashed password
+         */
+        public static String hashpw(String pass, String salt) {
+            return BCrypt.hashpw(pass, salt);
         }
-        public boolean checkpw(String text, String hash) {
-            return BCrypt.checkpw(text, hash);
+        /**
+         * Check that a plaintext password matches a previously hashed one
+         * @param pass the plaintext password to verify
+         * @param hash the previously-hashed password
+         * @return true if the passwords match, false otherwise
+         */
+        public static boolean checkpw(String pass, String hash) {
+            return BCrypt.checkpw(pass, hash);
         }
     }
     public static class Aes {
