@@ -21,6 +21,12 @@ import org.mindrot.jbcrypt.BCrypt;
  */
 public class MyEncryptor {
     /**
+     * Interfaz para la realización de processos de encriptación personalizados per el programador
+     */
+    public static interface customizedEncryptionProcess {
+        abstract String customProcess();
+    }
+    /**
      * Class for the encryption of passwords
      */
     public static class BlowFish {
@@ -115,6 +121,9 @@ public class MyEncryptor {
                 cadena += s + separator;
             }
             return cadena.substring(0, cadena.length()-1);
+        }
+        public static String useCustomizedEncryptionProcess(customizedEncryptionProcess process) {
+            return process.customProcess();
         }
     }
 }
