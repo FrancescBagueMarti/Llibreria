@@ -54,9 +54,8 @@ public class MySocket {
     /**
      * Constructor for a server's socket
      * @param PORT Integer with the port where the socket will be located
-     * @throws IOException Throws an Exception
      */
-    public MySocket(int PORT) throws IOException {
+    public MySocket(int PORT) {
         this.port = PORT;
         this.isClient = false;
     }
