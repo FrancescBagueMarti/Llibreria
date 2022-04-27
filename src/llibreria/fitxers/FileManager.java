@@ -9,6 +9,7 @@ import java.io.FileWriter;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,12 +23,15 @@ import llibreria.exceptions.FileManagerNotStartedException;
  * @since 2022/02/16
  */
 public abstract class FileManager {
-    private String filePath;
-    private File file;
+    String filePath;
+    File file;
     
     private FileManager(String filepath) {
         this.filePath = filepath;
         this.file = new File(filePath);
+    }
+    private FileInputStream getFileInputStream() throws FileNotFoundException {
+        return new FileInputStream(file);
     }
     /**
      * @return Returns a FileReader
@@ -43,34 +47,6 @@ public abstract class FileManager {
     private FileWriter getFileWriter() throws IOException {
         return new FileWriter(file);
     }
-    
-    /**
-     * @return Returns a File
-     */
-    public File getFile() {
-        return this.file;
-    }
-    /**
-     * @return Returns a String
-     */
-    public String getFilePath() {
-        return filePath;
-    }
-    /**
-     * @param newFilePath New file path
-     */
-    public void setFile(String newFilePath) {
-        this.filePath = newFilePath;
-        this.file = new File(newFilePath);
-    }
-    /**
-     * @param newFile New File object
-     */
-    public void setFile(File newFile) {
-        this.filePath = newFile.getPath();
-        this.file = newFile;
-    }
-    
     /**
      * Method that starts the Reader / Writer
      * @throws FileNotFoundException Throws a FileNotFoundException
@@ -82,7 +58,26 @@ public abstract class FileManager {
      * @throws IOException Throws an IOException
      */
     abstract public void close() throws IOException;
-    
+    /**
+     * Class for the reading of files as bytes
+     */
+    public static class FileStreamReader extends FileManager {
+        private FileInputStream streamReader;
+        private boolean hasBeenStarted = false;
+        public FileStreamReader(String file) {
+            super(file);
+        }
+        @Override
+        public void start() throws FileNotFoundException, IOException {
+            this.streamReader = super.getFileInputStream();
+            this.hasBeenStarted = true;
+        }
+        @Override
+        public void close() throws IOException {
+            this.streamReader.close();
+            this.hasBeenStarted = false;
+        }
+    }
     /**
      * Class for the reading of text files
      */
@@ -113,13 +108,14 @@ public abstract class FileManager {
          * Method that reads a single line from a text file
          * @return Returns a String object
          * @throws FileManagerNotStartedException Throws a custom Exception {@link llibreria.exceptions.FileManagerNotStartedException}
+         * @throws IOException Throws an Exception
          */
-        public String readLine() throws FileManagerNotStartedException {
+        public String readLine() throws FileManagerNotStartedException, IOException {
             if (this.hasBeenStarted)
                 try {
                     return this.reader.readLine();
                 } catch (IOException ex) {
-                    throw new FileManagerNotStartedException(ex);
+                    throw ex;
                 }
             else 
                 throw new FileManagerNotStartedException();
@@ -128,8 +124,9 @@ public abstract class FileManager {
          * Method that reads all the text inside a file and returns it inside an ArrayList
          * @return Returns an ArrayList object
          * @throws FileManagerNotStartedException Throws a custom Exception {@link llibreria.exceptions.FileManagerNotStartedException}
+         * @throws IOException Throws an Exception
          */
-        public ArrayList<String> readAll() throws FileManagerNotStartedException {
+        public ArrayList<String> readAll() throws FileManagerNotStartedException, IOException {
             if (this.hasBeenStarted) {
                 ArrayList<String> content = new ArrayList<>();
                 String line;
@@ -139,15 +136,13 @@ public abstract class FileManager {
                     }
                     return content;
                 } catch (IOException ex) {
-                    throw new FileManagerNotStartedException(ex);
+                    throw ex;
                 }
             } else 
                 throw new FileManagerNotStartedException();
                 
         }
-
     }
-    
     /**
      * Class for the writing of text files
      */
