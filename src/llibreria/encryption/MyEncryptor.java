@@ -76,7 +76,7 @@ public class MyEncryptor {
     public static class Aes {
         private static final String CIPHER_INSTANCE = "AES/ECB/PKCS5Padding";
 
-        public SecretKeySpec getKey(String clave) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+        public static SecretKeySpec getKey(String clave) throws UnsupportedEncodingException, NoSuchAlgorithmException {
             byte[] claveEncriptar = MessageDigest.getInstance("SHA-1").digest(clave.getBytes("UTF-8"));
             claveEncriptar = Arrays.copyOf(claveEncriptar, 16);
             return new SecretKeySpec(claveEncriptar, "AES");
