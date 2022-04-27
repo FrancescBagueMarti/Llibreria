@@ -26,3 +26,6 @@ hs_err_pid*
 
 # testing class
 proves.java
+
+# VSCode files
+/.vscode/
