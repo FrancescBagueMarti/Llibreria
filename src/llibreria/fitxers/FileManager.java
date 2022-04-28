@@ -29,6 +29,12 @@ public abstract class FileManager {
         this.filePath = filepath;
         this.file = new File(filePath);
     }
+    public static Reader getReader(String filepath) {
+        return new Reader(filepath);
+    }
+    public static Writer getWriter(String filepath) {
+        return new Writer(filepath);
+    }
     /**
      * @return Returns a FileReader
      * @throws FileNotFoundException Throws a FileNotFoundException
@@ -94,7 +100,7 @@ public abstract class FileManager {
          * Constructor for the Reader
          * @param file The file's path
          */
-        public Reader(String file) {
+        private Reader(String file) {
             super(file);
         }
         
@@ -108,7 +114,21 @@ public abstract class FileManager {
             this.reader.close();
             this.hasBeenStarted = false;
         }
-        
+        /**
+         * Method that reads a single character as an integer
+         * @return Returns an integer value
+         * @throws FileManagerNotStartedException Throws an exception
+         */
+        public int read() throws FileManagerNotStartedException {
+            if (this.hasBeenStarted) {
+                try {
+                    return this.reader.read();
+                } catch (IOException ex) {
+                    throw new FileManagerNotStartedException(ex);
+                }
+            } else
+                throw new FileManagerNotStartedException();
+        }
         /**
          * Method that reads a single line from a text file
          * @return Returns a String object
@@ -159,7 +179,7 @@ public abstract class FileManager {
          * Constructor for the Writer
          * @param file The file's path
          */
-        public Writer(String file) {
+        private Writer(String file) {
             super(file);
         }
         
