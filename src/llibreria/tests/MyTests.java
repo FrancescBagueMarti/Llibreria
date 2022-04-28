@@ -1,8 +1,9 @@
 package llibreria.tests;
 import org.opentest4j.AssertionFailedError;
 import llibreria.values.AsciiChars;
+import org.junit.jupiter.api.Assertions;
 public class MyTests {
-    private static int test_count = -1;
+    private static int test_count = 0;
     private static String TEST_PASSED;
     private static String TEST_FAILED;
 
@@ -15,12 +16,14 @@ public class MyTests {
             } catch (AssertionFailedError ex) {
                 System.out.println(TEST_FAILED);
             }
-            
         }
     }
     void v(int... nums){}
     public static interface test {
         abstract void unitaryTest() throws AssertionFailedError;
+    }
+    public static void assertEquals(Object expected, Object actual) throws AssertionFailedError {
+        Assertions.assertEquals(expected, actual);
     }
     private static void loadMessages(){
         test_count++;
